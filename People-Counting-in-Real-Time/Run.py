@@ -47,13 +47,22 @@ def run():
 	# if a video path was not supplied, grab a reference to the ip camera
 	if not args.get("input", False):
 		print("[INFO] Starting the live stream..")
-		vs = VideoStream(config.url).start()
+
+		#**************************************************************
+		#UNCOMMENT FOR IP CAM
+		# vs = VideoStream(config.url).start()
+
+		# UNCOMMENT FOR WEBCAM
+		vs = cv2.VideoCapture(0)
+		#**************************************************************
+
+
 		time.sleep(2.0)
 
 	# otherwise, grab a reference to the video file
 	else:
 		print("[INFO] Starting the video..")
-		vs = cv2.VideoCapture(args["input"])
+		# vs = cv2.VideoCapture(args["input"])
 
 	# initialize the video writer (we'll instantiate later if need be)
 	writer = None
@@ -90,7 +99,17 @@ def run():
 		# grab the next frame and handle if we are reading from either
 		# VideoCapture or VideoStream
 		frame = vs.read()
-		frame = frame[1] if args.get("input", False) else frame
+
+
+
+		#**************************************************************
+		# UNCOMMENT FOR IP CAMERA STREAM
+		# frame = frame[1] if args.get("input", False) else frame
+
+		# UNCOMMENT FOR WEBCAM
+		frame = cv2.resize(frame[1], None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+		#**************************************************************
+
 
 		# if we are viewing a video and we did not grab a frame then we
 		# have reached the end of the video
