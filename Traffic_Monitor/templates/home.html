@@ -1,0 +1,24 @@
+
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+{{object.company}}
+
+{% if user.is_authenticated %}
+
+    {% for object in object_list %}
+        <h2>Company: {{ object.company }}</h2>
+        <p>Total Entered: {{ object.entered }}</p>
+        <p>Total Exited: {{ object.exited }}</p>
+        <p>Current Capacity: {{ object.current_total }}</p>
+        <p>Building Capacity: {{ object.building_capacity }}</p>
+    {% endfor %}
+
+{% else %}
+    <h2>LOGIN TO VIEW</h2>
+
+{% endif %}
+
+{% endblock content %}
