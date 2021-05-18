@@ -4,17 +4,17 @@ A django app that counts movement through an area, records it, and displays it i
 
 Installation
 ------------
--clone repo
+clone repo
 
--cd inside cloned folder
+cd inside cloned folder
 
--python3 -m venv venv
+*python3 -m venv venv
 
--source venv/bin/activate
+*source venv/bin/activate
 
--pip install cmake
+*pip install cmake
 
--pip install -r requirements.txt
+*pip install -r requirements.txt
 
 
 -
