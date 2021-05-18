@@ -1,5 +1,4 @@
 from .models import Counting
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import (
@@ -18,14 +17,15 @@ class CountsDetailView(DetailView):
 class CountsCreateView(CreateView):
     model = Counting
     template_name = 'counts_create.html'
-    fields = ['company', 'entered', 'exited', 'current_total', 'building_capacitiy']
+    fields = ['company', 'entered', 'exited', 'current', 'capacity']
 
 class CountsUpdateView(UpdateView):
     model = Counting
     template_name = 'counts_edit.html'
-    fields = ['company', 'entered', 'exited', 'current_total', 'building_capacitiy']
+    fields = ['company', 'entered', 'exited', 'current', 'capacity']
+    success_url = reverse_lazy('home')
 
 class CountsDeleteView(DeleteView):
     model = Counting
-    template_name = 'settings_reset.html'
+    template_name = 'counts_reset.html'
     success_url = reverse_lazy('home')

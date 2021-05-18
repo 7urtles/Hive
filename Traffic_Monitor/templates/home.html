@@ -9,11 +9,11 @@
 {% if user.is_authenticated %}
 
     {% for object in object_list %}
-        <h2>Company: {{ object.company }}</h2>
+        <h2>{{ object.company }}</h2>
         <p>Total Entered: {{ object.entered }}</p>
         <p>Total Exited: {{ object.exited }}</p>
-        <p>Current Capacity: {{ object.current_total }}</p>
-        <p>Building Capacity: {{ object.building_capacity }}</p>
+        <p>Current Capacity: {{ object.current }}</p>
+        <p>Building Capacity: {{ object.capacity }}</p>
     {% endfor %}
 
 {% else %}

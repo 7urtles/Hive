@@ -50,10 +50,10 @@ def run():
 
 		#**************************************************************
 		#UNCOMMENT FOR IP CAM
-		# vs = VideoStream(config.url).start()
+		vs = VideoStream(config.url).start()
 
 		# UNCOMMENT FOR WEBCAM
-		vs = cv2.VideoCapture(0)
+		# vs = cv2.VideoCapture(0)
 		#**************************************************************
 
 
@@ -104,10 +104,10 @@ def run():
 
 		#**************************************************************
 		# UNCOMMENT FOR IP CAMERA STREAM
-		# frame = frame[1] if args.get("input", False) else frame
+		frame = frame[1] if args.get("input", False) else frame
 
 		# UNCOMMENT FOR WEBCAM
-		frame = cv2.resize(frame[1], None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+		# frame = cv2.resize(frame[1], None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
 		#**************************************************************
 
 
@@ -136,14 +136,14 @@ def run():
 		# initialize the current status along with our list of bounding
 		# box rectangles returned by either (1) our object detector or
 		# (2) the correlation trackers
-		status = "Waiting"
+		#status = "Waiting"
 		rects = []
 
 		# check to see if we should run a more computationally expensive
 		# object detection method to aid our tracker
 		if totalFrames % args["skip_frames"] == 0:
 			# set the status and initialize our new set of object trackers
-			status = "Detecting"
+			#status = "Detecting"
 			trackers = []
 
 			# convert the frame to a blob and pass the blob through the
@@ -241,6 +241,8 @@ def run():
 				# 'up' and positive for 'down')
 				y = [c[0] for c in to.centroids]
 				direction = centroid[1] - np.mean(y)
+
+				#direction = centroid[1] - y[-1]
 				to.centroids.append(centroid)
 
 				# check to see if the object has been counted or not
@@ -259,9 +261,6 @@ def run():
 					elif direction > 0 and centroid[0] > W // 2:
 						totalDown += 1
 						empty1.append(totalDown)
-						#print(empty1[-1])
-						# if the people limit exceeds over threshold, send an email alert
-
 						to.counted = True
 						
 					x = []
@@ -288,6 +287,7 @@ def run():
 
 					except sqlite3.Error as error:
 						print("Failed to update sqlite table", error)
+						
 					finally:
 						if sqliteConnection:
 							sqliteConnection.close()
@@ -314,7 +314,7 @@ def run():
 		]
 
 		info2 = [
-		("Total people inside", x),
+		("People inside", x),
 		]
 
                 # Display the output
@@ -341,6 +341,7 @@ def run():
 		# show the output frame
 		cv2.imshow("Real-Time Monitoring/Analysis Window", frame)
 		key = cv2.waitKey(1) & 0xFF
+		
 
 		# if the `q` key was pressed, break from the loop
 		if key == ord("q"):

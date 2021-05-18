@@ -140,7 +140,6 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 
-
 # EMAIL RESET & SMTP SETTINGS
 #-----------------------
 

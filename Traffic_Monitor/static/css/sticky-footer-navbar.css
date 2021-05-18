@@ -9,10 +9,10 @@ html {
     margin-bottom: 60px;
   }
   main{
-    margin-top: 15vh;
+    margin-top: 10vh;
   }
   .footer {
-    position: absolute;
+    position: fixed;
     right: 0px;
     bottom: 0;
     width: 100%;
