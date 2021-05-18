@@ -31,9 +31,8 @@ On any device on same network as the host:
 http://'your.host.ip.address':8000
 
 Register an account then login
--
 
--
+
 Launching Image Recognition
 ---------------------------
 Leave the app server running and in new terminal withing cloned folder 'FSDI_Final':
