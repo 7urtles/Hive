@@ -22,9 +22,8 @@ How to run
 cd Traffic_Monitor
 
 python3 manage.py runserver 0.0.0.0:8000
--
-test
--
+
+
 Accessing the app
 ------------------
 On any device on same network as the host:
