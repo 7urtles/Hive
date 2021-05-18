@@ -6,7 +6,12 @@
 MAIL = ''
 
 # Enter the ip camera url (e.g., url = 'http://191.138.0.100:8040/video')
-url = 'http://192.168.1.215:8000/stream.mjpg'
+
+#home raspi-cam
+#url = 'http://192.168.1.215:8000/stream.mjpg'
+
+# phone ipcam stream
+url = 'http://admin:admin@192.168.1.210:8081/video'
 
 # ON/OFF for mail feature. Enter True to turn on the email alert feature.
 ALERT = False
