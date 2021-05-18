@@ -10,6 +10,9 @@ clone repo
 cd inside cloned folder
 
 python3 -m venv venv
+
 source venv/bin/activate
+
 pip install cmake
+
 pip install -r requirements.txt
