@@ -17,15 +17,13 @@ cd inside cloned folder
 *pip install -r requirements.txt
 
 
--
-what here
 How to run
 --------------
 cd Traffic_Monitor
 
 python3 manage.py runserver 0.0.0.0:8000
 -
-
+test
 -
 Accessing the app
 ------------------
