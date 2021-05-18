@@ -29,3 +29,14 @@ Accessing the app
 On any device on same network as the host:
 
 http://'your.host.ip.address':8000
+
+Register an account then login
+
+
+Launching Image Recognition
+---------------------------
+Leave the app server running and in new terminal withing cloned folder 'FSDI_Final':
+
+cd People-Counting-in-Real-Time
+
+python Run.py --prototxt mobilenet_ssd/MobileNetSSD_deploy.prototxt --model mobilenet_ssd/MobileNetSSD_deploy.caffemodel
