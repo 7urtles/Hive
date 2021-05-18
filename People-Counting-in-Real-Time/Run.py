@@ -50,10 +50,10 @@ def run():
 
 		#**************************************************************
 		#UNCOMMENT FOR IP CAM
-		vs = VideoStream(config.url).start()
+		#vs = VideoStream(config.url).start()
 
 		# UNCOMMENT FOR WEBCAM
-		# vs = cv2.VideoCapture(0)
+		vs = cv2.VideoCapture(0)
 		#**************************************************************
 
 
@@ -104,10 +104,10 @@ def run():
 
 		#**************************************************************
 		# UNCOMMENT FOR IP CAMERA STREAM
-		frame = frame[1] if args.get("input", False) else frame
+		#frame = frame[1] if args.get("input", False) else frame
 
 		# UNCOMMENT FOR WEBCAM
-		# frame = cv2.resize(frame[1], None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+		frame = cv2.resize(frame[1], None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
 		#**************************************************************
 
 
