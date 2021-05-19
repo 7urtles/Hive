@@ -43,3 +43,7 @@ html {
   code {
     font-size: 80%;
   }
+
+  .stat-items{
+    margin: 1rem;
+  }

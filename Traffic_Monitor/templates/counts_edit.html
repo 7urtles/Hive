@@ -7,12 +7,11 @@
     <h1>Modify</h1><br>
     <form action="" method="post">
         {% csrf_token %}
-        {{ form.company|as_crispy_field }}
-        {{ form.entered|as_crispy_field }}
-        {{ form.exited|as_crispy_field }}
-        {{ form.current|as_crispy_field }}
-        {{ form.capacity|as_crispy_field }}
-
+        {{ form.company|as_crispy_field }}<br>
+        {{ form.entered|as_crispy_field }}<br>
+        {{ form.exited|as_crispy_field }}<br>
+        {{ form.current|as_crispy_field }}<br>
+        {{ form.capacity|as_crispy_field }}<br>
         <button type="submit" class="btn-block btn-success btn-lg">Submit</button><br>
     </form>
     <a href="/"><button class="btn-block btn-danger btn-lg">Cancel</button></a>

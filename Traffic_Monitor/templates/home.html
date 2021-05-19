@@ -9,15 +9,22 @@
 {% if user.is_authenticated %}
 
     {% for object in object_list %}
-        <h2>{{ object.company }}</h2>
-        <p>Total Entered: {{ object.entered }}</p>
-        <p>Total Exited: {{ object.exited }}</p>
-        <p>Current Capacity: {{ object.current }}</p>
-        <p>Building Capacity: {{ object.capacity }}</p>
+
+        <h1>{{ object.company }}</h1> <br>
+
+        <div class="d-flex justify-content-center"">
+            <div class="d-flex">
+                <p class="h4 text-left stat-items">Now: <br><span class="text-secondary">{{ object.current }}</span></p>
+                <p class="h4 text-left stat-items">Max: <br><span class="text-secondary">{{ object.capacity }}</span></p>
+                <p class="h4 text-left stat-items">In: <br><span class="text-secondary">{{ object.entered }}</span></p>
+                <p class="h4 text-left stat-items">Out: <br><span class="text-secondary">{{ object.exited }}</span></p>
+            </div>
+        </div>
+       
     {% endfor %}
 
 {% else %}
-    <h2>LOGIN TO VIEW</h2>
+    <h2>LOGIN FOR ACCESS</h2>
 
 {% endif %}
 
