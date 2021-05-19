@@ -8,13 +8,13 @@ clone repo
 
 cd inside cloned folder
 
-python3 -m venv venv
+*python3 -m venv venv
 
-source venv/bin/activate
+*source venv/bin/activate
 
-pip install cmake
+*pip install cmake
 
-pip install -r requirements.txt
+*pip install -r requirements.txt
 
 
 How to run
@@ -29,3 +29,14 @@ Accessing the app
 On any device on same network as the host:
 
 http://'your.host.ip.address':8000
+
+Register an account then login
+
+
+Launching Image Recognition
+---------------------------
+Leave the app server running and in new terminal withing cloned folder 'FSDI_Final':
+
+cd People-Counting-in-Real-Time
+
+python Run.py --prototxt mobilenet_ssd/MobileNetSSD_deploy.prototxt --model mobilenet_ssd/MobileNetSSD_deploy.caffemodel
