@@ -15,7 +15,23 @@ import sqlite3
 
 t0 = time.time()
 
-def run():
+#*********************************************
+#		APP SETTINGS START
+#*********************************************
+company = "YardBar"
+#company = "ShotStop"
+#company = "Bridgers"
+#company = "Lotus"
+
+camera_type = 'webcam'
+#camera_type = 'ipcam'
+
+
+#*********************************************
+#		APP SETTINGS END
+#*********************************************
+
+def run(company,camera_type):
 
 	# construct the argument parse and parse the arguments
 	ap = argparse.ArgumentParser()
@@ -47,16 +63,10 @@ def run():
 	# if a video path was not supplied, grab a reference to the ip camera
 	if not args.get("input", False):
 		print("[INFO] Starting the live stream..")
-
-		#**************************************************************
-		#UNCOMMENT FOR IP CAM
-		#vs = VideoStream(config.url).start()
-
-		# UNCOMMENT FOR WEBCAM
-		vs = cv2.VideoCapture(0)
-		#**************************************************************
-
-
+		if camera_type == "webcam":
+			vs = cv2.VideoCapture(0)
+		elif camera_type == "ipcam":
+			vs = VideoStream(config.url).start()
 		time.sleep(2.0)
 
 	# otherwise, grab a reference to the video file
@@ -97,17 +107,17 @@ def run():
 	# loop over frames from the video stream
 	while True:
 		# grab the next frame and handle if we are reading from either
-		# VideoCapture or VideoStream
 		frame = vs.read()
-
-
-
+		if camera_type == 'webcam':
+			frame = cv2.resize(frame[1], None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+		else:
+			frame = frame[1] if args.get("input", False) else frame
 		#**************************************************************
 		# UNCOMMENT FOR IP CAMERA STREAM
 		#frame = frame[1] if args.get("input", False) else frame
 
 		# UNCOMMENT FOR WEBCAM
-		frame = cv2.resize(frame[1], None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+		
 		#**************************************************************
 
 
@@ -278,8 +288,8 @@ def run():
 						cursor = sqliteConnection.cursor()
 						print("Connected to SQLite")
 
-						sql_update_query = """Update detection_counting set entered = ?, exited = ?, current_total = ? where id = 1"""
-						cursor.execute(sql_update_query,(totalDown,totalUp,x[0]))
+						sql_update_query = """Update detection_counting set entered = ?, exited = ?, current = ? where company = ?"""
+						cursor.execute(sql_update_query,(totalDown,totalUp,x[0],company))
 
 						sqliteConnection.commit()
 						print("Record Updated successfully ")
@@ -392,4 +402,4 @@ if config.Scheduler:
 		schedule.run_pending()
 
 else:
-	run()
+	run(company,camera_type)
