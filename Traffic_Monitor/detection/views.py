@@ -1,10 +1,24 @@
 from .models import Counting
 from django.urls import reverse_lazy
+from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import (
-    CreateView, UpdateView, DeleteView
+    CreateView, UpdateView, DeleteView, View
 )
+# utils graphing import
+from .utils import get_plot
+
+
 # Create your views here.
+class GraphView(View):
+    def as_view():
+        def graph_function(request):
+            qs = Counting.objects.all()
+            x = [x.company for x in qs]
+            y = [y.exited for y in qs]
+            chart = get_plot(x, y)
+            return render(request, 'graph.html', {'chart': chart})
+        return graph_function
 
 class SettingsView(ListView):
     model = Counting
@@ -29,3 +43,4 @@ class CountsDeleteView(DeleteView):
     model = Counting
     template_name = 'counts_reset.html'
     success_url = reverse_lazy('home')
+
