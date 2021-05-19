@@ -10,7 +10,7 @@
 
     {% for object in object_list %}
 
-        <h1>{{ object.company }}</h1>
+        <a href="{% url 'graph' %}"><h1>{{ object.company }}</h1></a>
 
         <div class="d-flex justify-content-center">
             <div class="d-flex">
