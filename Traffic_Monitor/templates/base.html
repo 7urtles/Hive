@@ -34,7 +34,7 @@
             {% if user.is_authenticated %}
             <li class="nav-item">
               {% for object in object_list %}
-              <a class="nav-link" href="{% url 'counts_edit' object.pk %}">{{ object.company }}<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'company_edit' object.pk %}">{{ object.company }}<span class="sr-only">(current)</span></a>
               {% endfor %}
             </li>
             <div>
@@ -78,7 +78,7 @@
         {% if user.is_authenticated %}
 
         {% for object in object_list %}
-        <a class="nav-link" href="{% url 'counts_edit' object.pk %}">Settings</a>
+        <a class="nav-link" href="{% url 'company_edit' object.pk %}">Settings</a>
 
         {% endfor %}
 

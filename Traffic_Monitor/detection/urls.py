@@ -1,18 +1,18 @@
 from django.urls import path
 from .views import (
 	SettingsView, 
-	CountsCreateView, 
-	CountsDetailView, 
-	CountsUpdateView, 
-	CountsDeleteView,
+	CompanyCreateView, 
+	CompanyDetailView, 
+	CompanyUpdateView, 
+	CompanyDeleteView,
 	GraphView,
 )
 
 urlpatterns = [
 	path("", SettingsView.as_view(), name="home"),
 	path("graph/", GraphView.as_view(), name="graph"),
-	path('detection/new/', CountsCreateView.as_view(), name='counts_create'),
-	path("detection/<int:pk>/", CountsDetailView.as_view(), name='counts_detail'),
-	path("detection/<int:pk>/edit/", CountsUpdateView.as_view(), name='counts_edit'),
-	path("detection/<int:pk>/delete/", CountsDeleteView.as_view(), name='counts_delete'),
+	path('detection/new/', CompanyCreateView.as_view(), name='company_create'),
+	path("detection/<int:pk>/", CompanyDetailView.as_view(), name='company_detail'),
+	path("detection/<int:pk>/edit/", CompanyUpdateView.as_view(), name='company_edit'),
+	path("detection/<int:pk>/delete/", CompanyDeleteView.as_view(), name='company_delete'),
 ]

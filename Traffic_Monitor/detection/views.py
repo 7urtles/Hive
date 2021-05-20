@@ -1,4 +1,4 @@
-from .models import Counting
+from .models import Company
 from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
@@ -8,41 +8,39 @@ from django.views.generic.edit import (
 # utils graphing import
 from .utils import get_plot
 
-
 # Create your views here.
 class GraphView(ListView):
     template_name = "graph.html"
     def as_view():
         def graph_function(request):
-            model = Counting.objects.all()
-            qs = Counting.objects.all()
-            x = [x.company for x in qs]
-            y = [y.current for y in qs]
+            model = Company.objects.all()
+            x = [x.company for x in model]
+            y = [y.current for y in model]
             chart = get_plot(x, y)
             return render(request, 'graph.html', {'chart': chart, 'object_list':model})
         return graph_function
 
 class SettingsView(ListView):
-    model = Counting
+    model = Company
     template_name = "home.html"
 
-class CountsDetailView(DetailView):
-	model = Counting
+class CompanyDetailView(DetailView):
+	model = Company
 	template_name = 'home.html'
 
-class CountsCreateView(CreateView):
-    model = Counting
-    template_name = 'counts_create.html'
+class CompanyCreateView(CreateView):
+    model = Company
+    template_name = 'company_create.html'
     fields = ['company', 'entered', 'exited', 'current', 'capacity']
 
-class CountsUpdateView(UpdateView):
-    model = Counting
-    template_name = 'counts_edit.html'
+class CompanyUpdateView(UpdateView):
+    model = Company
+    template_name = 'company_edit.html'
     fields = ['company', 'entered', 'exited', 'current', 'capacity']
     success_url = reverse_lazy('home')
 
-class CountsDeleteView(DeleteView):
-    model = Counting
-    template_name = 'counts_reset.html'
+class CompanyDeleteView(DeleteView):
+    model = Company
+    template_name = 'company_reset.html'
     success_url = reverse_lazy('home')
 

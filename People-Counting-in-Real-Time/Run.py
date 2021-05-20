@@ -2,21 +2,20 @@ from mylib.centroidtracker import CentroidTracker
 from mylib.trackableobject import TrackableObject
 from imutils.video import VideoStream
 from imutils.video import FPS
-from mylib.mailer import Mailer
 from mylib import config, thread
 import time, schedule, csv
 import numpy as np
 import argparse, imutils
 import time, dlib, cv2, datetime
 from itertools import zip_longest
+import dateutil.parser
 
 #added import for sqlite3
-import sqlite3
-
+from database_code import dataHandler
 t0 = time.time()
 
 #*********************************************
-#		APP SETTINGS START
+#			   SETTINGS START
 #*********************************************
 company = "YardBar"
 #company = "ShotStop"
@@ -26,13 +25,15 @@ company = "YardBar"
 camera_type = 'webcam'
 #camera_type = 'ipcam'
 
-
+datetimeIn = [datetime.datetime.now()]
+datetimeOut = [datetime.datetime.now()]
 #*********************************************
-#		APP SETTINGS END
+#				 SETTINGS END
 #*********************************************
 
-def run(company,camera_type):
-
+def run(company,camera_type, datetimeIn, datetimeOut):
+	entrances = []
+	exits = []
 	# construct the argument parse and parse the arguments
 	ap = argparse.ArgumentParser()
 	ap.add_argument("-p", "--prototxt", required=False,
@@ -112,14 +113,6 @@ def run(company,camera_type):
 			frame = cv2.resize(frame[1], None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
 		else:
 			frame = frame[1] if args.get("input", False) else frame
-		#**************************************************************
-		# UNCOMMENT FOR IP CAMERA STREAM
-		#frame = frame[1] if args.get("input", False) else frame
-
-		# UNCOMMENT FOR WEBCAM
-		
-		#**************************************************************
-
 
 		# if we are viewing a video and we did not grab a frame then we
 		# have reached the end of the video
@@ -191,9 +184,6 @@ def run(company,camera_type):
 					tracker = dlib.correlation_tracker()
 					rect = dlib.rectangle(startX, startY, endX, endY)
 					tracker.start_track(rgb, rect)
-
-					# add the tracker to our list of trackers so we can
-					# utilize it during skip frames
 					trackers.append(tracker)
 
 		# otherwise, we should utilize our object *trackers* rather than
@@ -217,13 +207,6 @@ def run(company,camera_type):
 
 				# add the bounding box coordinates to the rectangles list
 				rects.append((startX, startY, endX, endY))
-
-		# draw a horizontal line in the center of the frame -- once an
-		# object crosses this line we will determine whether they were
-		# moving 'up' or 'down'
-		# cv2.line(frame, (0, H // 2), (W, H // 2), (0, 0, 0), 3)
-		# cv2.putText(frame, "-Prediction border - Entrance-", (10, H - ((i * 20) + 200)),
-		# 	cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
 
 		# Default code commented out above
 		cv2.line(frame, (W // 2, 0), (W // 2, H), (0, 0, 0), 2)
@@ -264,6 +247,10 @@ def run(company,camera_type):
 						totalUp += 1
 						empty.append(totalUp)
 						to.counted = True
+						datetimeIn = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+						datetimeOut = dateutil.parser.parse(datetimeIn)
+						print(datetimeIn)
+						entrances.append(datetimeIn)
 
 					# if the direction is positive (indicating the object
 					# is moving right) AND the centroid is right the
@@ -272,38 +259,28 @@ def run(company,camera_type):
 						totalDown += 1
 						empty1.append(totalDown)
 						to.counted = True
+						datetimeOut = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+						datetimeOut = dateutil.parser.parse(datetimeOut)
+						print(datetimeOut)
+						exits.append(datetimeOut)
 						
 					x = []
+					
+					
 					# compute the sum of total people inside
 					x.append(len(empty1)-len(empty))
 					#print("Total people inside:", x)
 
-
+					
 					# *************************************************
-					#             INSERTED CODE BEGINS
+					#          INSERTED FUNCTION CALL DATABASE
 					# *************************************************
-					# WRITING STATS TO DJANGO SQLITE2 DATABASE
-					try:
-						sqliteConnection = sqlite3.connect('/home/charles/Documents/FSDI_Final/Traffic_Monitor/db.sqlite3')
-						cursor = sqliteConnection.cursor()
-						print("Connected to SQLite")
-
-						sql_update_query = """Update detection_counting set entered = ?, exited = ?, current = ? where company = ?"""
-						cursor.execute(sql_update_query,(totalDown,totalUp,x[0],company))
-
-						sqliteConnection.commit()
-						print("Record Updated successfully ")
-						cursor.close()
-
-					except sqlite3.Error as error:
-						print("Failed to update sqlite table", error)
-						
-					finally:
-						if sqliteConnection:
-							sqliteConnection.close()
-							print("The SQLite connection is closed")
+					dataHandler(entrances, exits, datetimeIn, datetimeOut, totalUp, totalDown, x, company)
+					# Clearing variables for next time function is called
+					entrances = []
+					exits = []
 					# *************************************************
-					#              INSERTED CODE ENDS
+					#            
 					# *************************************************
 
 			# store the trackable object in our dictionary
@@ -327,7 +304,7 @@ def run(company,camera_type):
 		("People inside", x),
 		]
 
-                # Display the output
+        # Display the output
 		for (i, (k, v)) in enumerate(info):
 			text = "{}: {}".format(k, v)
 			cv2.putText(frame, text, (10, H - ((i * 20) + 20)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
@@ -357,8 +334,6 @@ def run(company,camera_type):
 		if key == ord("q"):
 			break
 
-		# increment the total number of frames processed thus far and
-		# then update the FPS counter
 		totalFrames += 1
 		fps.update()
 
@@ -373,15 +348,6 @@ def run(company,camera_type):
 	fps.stop()
 	print("[INFO] elapsed time: {:.2f}".format(fps.elapsed()))
 	print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
-
-
-	# # if we are not using a video file, stop the camera video stream
-	# if not args.get("input", False):
-	# 	vs.stop()
-	#
-	# # otherwise, release the video file pointer
-	# else:
-	# 	vs.release()
 	
 	# issue 15
 	if config.Thread:
@@ -402,4 +368,4 @@ if config.Scheduler:
 		schedule.run_pending()
 
 else:
-	run(company,camera_type)
+	run(company,camera_type,datetimeOut,datetimeIn)
