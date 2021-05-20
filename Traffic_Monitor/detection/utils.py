@@ -15,11 +15,11 @@ def get_graph():
 def get_plot(x,y):
     plt.switch_backend('AGG')
     plt.figure(figsize=(3,3))
-    plt.title('Traffic over Time')
+    # plt.title('Traffic over Time')
     plt.plot(x,y)
     plt.xticks(rotation=45)
-    plt.xlabel('Time')
-    plt.ylabel('People')
+    # plt.xlabel('Time')
+    # plt.ylabel('People')
     plt.tight_layout()
     graph = get_graph()
     return graph

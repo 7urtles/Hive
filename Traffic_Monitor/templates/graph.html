@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 {% if chart %}
+
 <p>Note: Display graph for each company that shows entries/exits per each hour</p>
 <img src="data:image/png;base64, {{chart|safe}}">
 {% endif %}

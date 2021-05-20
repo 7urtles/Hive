@@ -3,21 +3,23 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import (
-    CreateView, UpdateView, DeleteView, View
+    CreateView, UpdateView, DeleteView
 )
 # utils graphing import
 from .utils import get_plot
 
 
 # Create your views here.
-class GraphView(View):
+class GraphView(ListView):
+    template_name = "graph.html"
     def as_view():
         def graph_function(request):
+            model = Counting.objects.all()
             qs = Counting.objects.all()
             x = [x.company for x in qs]
-            y = [y.exited for y in qs]
+            y = [y.current for y in qs]
             chart = get_plot(x, y)
-            return render(request, 'graph.html', {'chart': chart})
+            return render(request, 'graph.html', {'chart': chart, 'object_list':model})
         return graph_function
 
 class SettingsView(ListView):
