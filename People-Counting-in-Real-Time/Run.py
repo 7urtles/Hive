@@ -11,7 +11,7 @@ from itertools import zip_longest
 import dateutil.parser
 
 #added import for sqlite3
-from database_code import dataHandler
+from database_writer import dataHandler
 t0 = time.time()
 
 #*********************************************

@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 
-
 # Create your models here.
 
 class Company(models.Model):
@@ -10,15 +9,12 @@ class Company(models.Model):
     exited = models.IntegerField(default=0)
     current = models.IntegerField(default=0)
     capacity = models.IntegerField(default=0)
-    
-
 
     def __str__(self):
         return self.company
 
     def get_absolute_url(self):
         return reverse('counts_detail', args=[str(self.pk)])
-
 
 class Entrance(models.Model):
 
@@ -33,4 +29,3 @@ class Exit(models.Model):
 
     def get_absolute_url(self):
         return reverse('movement_detail', args=[str(self.pk)])
-
