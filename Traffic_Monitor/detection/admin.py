@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Company,Entrance,Exit
+from .models import Company,Movement
 # Register your models here.
 
 admin.site.register(Company)
-admin.site.register(Entrance)
-admin.site.register(Exit)
+admin.site.register(Movement)

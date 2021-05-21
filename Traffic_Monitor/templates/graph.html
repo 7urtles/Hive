@@ -2,8 +2,14 @@
 
 {% block content %}
 {% if chart %}
-
-<p>Note: Display graph for each company that shows entries/exits per each hour</p>
-<img src="data:image/png;base64, {{chart|safe}}">
+<div class="card opacity-4" style="width: 90vw;">
+    <div class="card-body p-3 bg-light text-dark">
+        <h3 class="card-title">Entries/Exits</h3>
+        <div class="d-flex justify-content-center">
+            <img src="data:image/png;base64, {{chart|safe}}">
+        </div>
+        <br>
+    </div>
+</div>
 {% endif %}
 {% endblock content %}

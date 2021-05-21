@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 0.0.0.0:8000
+From: webmaster@localhost
+To: charleshparmley@icloud.com
+Date: Fri, 21 May 2021 02:01:02 -0000
+Message-ID: <162156246256.11482.3537219540875177184@Desktop>
+
+
+You're receiving this email because you requested a password reset for your user account at 0.0.0.0:8000.
+
+Please go to the following page and choose a new password:
+
+http://0.0.0.0:8000/accounts/reset/Mw/amz6xq-2a432667e6969c0fdd838799bb967e14/
+
+Your username, in case you’ve forgotten: charles
+
+Thanks for using our site!
+
+The 0.0.0.0:8000 team
+
+
+
+-------------------------------------------------------------------------------

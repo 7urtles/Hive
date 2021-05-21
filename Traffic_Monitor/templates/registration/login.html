@@ -6,11 +6,16 @@
 
 {% block content %}
 
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-</form>
+<div class="login-form">
+  <br><h2>Please Login</h2><br>
+<style>.asteriskField{display: none};</style>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.username|as_crispy_field }}<br>
+        {{ form.password|as_crispy_field }}<br><br><br><br><br>
+        <button type="submit" class="btn-block btn-dark btn-lg">Login</button><br>
+    </form>
+</div>
 
 {% endblock content %}

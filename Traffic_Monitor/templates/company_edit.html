@@ -3,17 +3,31 @@
 {% block content %}
 <!-- Eliminate Crispy Forms Asterisk -->
 <style>.asteriskField{display: none};</style>
+<div class="card opacity-4" style="width: 90vw;">
+    <div class="card-body p-3 bg-light text-dark">
+        <h3 class="card-title">{{ object.company }}</h3>
+        <div class="d-flex justify-content-center">
+            <div class="d-flex">
+                <p class="h4 text-left stat-items">Now: <br><span class="text-secondary">{{ object.current }}</span></p>
+                <p class="h4 text-left stat-items">Max: <br><span class="text-secondary">{{ object.capacity }}</span></p>
+                <p class="h4 text-left stat-items">In: <br><span class="text-secondary">{{ object.entered }}</span></p>
+                <p class="h4 text-left stat-items">Out: <br><span class="text-secondary">{{ object.exited }}</span></p>
+            </div>
+        </div>
+        <br>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.company|as_crispy_field }}<br>
+            {{ form.entered|as_crispy_field }}<br>
+            {{ form.exited|as_crispy_field }}<br>
+            {{ form.current|as_crispy_field }}<br>
+            {{ form.capacity|as_crispy_field }}<br>
+            <button type="submit" class="btn-block btn-success btn-lg">Update</button><br>
+        </form>
+        <a href="/"><button class="btn-block btn-danger btn-lg">Cancel</button></a>
 
-    <h1>Modify</h1><br>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.company|as_crispy_field }}<br>
-        {{ form.entered|as_crispy_field }}<br>
-        {{ form.exited|as_crispy_field }}<br>
-        {{ form.current|as_crispy_field }}<br>
-        {{ form.capacity|as_crispy_field }}<br>
-        <button type="submit" class="btn-block btn-success btn-lg">Submit</button><br>
-    </form>
-    <a href="/"><button class="btn-block btn-danger btn-lg">Cancel</button></a>
+    </div>
+</div>
+
 
 {% endblock content %}

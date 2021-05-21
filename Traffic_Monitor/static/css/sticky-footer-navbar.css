@@ -4,6 +4,16 @@ html {
     position: relative;
     min-height: 100%;
   }
+  .main-font{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+  }
+  .shadow {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+
+    /* the rest of your styling */
+}
   body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
@@ -25,8 +35,45 @@ html {
     text-decoration: none;
     color: white;
   }
-  
-  
+  .grad {
+    height: 200px;
+    background-color: #2C3539; /* For browsers that do not support gradients */
+    /* background-image: linear-gradient(to bottom right, #8D918D, #2C3539); */
+    background-image: url(https://wallpaperaccess.com/full/1634229.jpg);
+    background-size: cover;
+
+  }
+  .opacity-0 {
+    opacity:0!important;
+  }
+  .opacity-1 {
+    opacity:0.2!important;
+  }
+  .opacity-2 {
+    opacity:0.4!important;
+  }
+  .opacity-3 {
+    opacity:0.6!important;
+  }
+  .opacity-4 {
+    opacity:.8!important;
+  }
+  .opacity-5 {
+    opacity:1!important;
+  }
+  .greeting{
+    position: relative;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    top: 15vh;
+  }
+  .login-link {
+    position: relative;
+    top: 40vh;
+  }
+  .login-from {
+    position: relative;
+    top: 20vh;
+  }
   /* Custom page CSS
   -------------------------------------------------- */
   /* Not required for template or sticky footer method. */

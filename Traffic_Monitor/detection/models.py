@@ -9,6 +9,19 @@ class Company(models.Model):
     exited = models.IntegerField(default=0)
     current = models.IntegerField(default=0)
     capacity = models.IntegerField(default=0)
+    def __str__(self):
+        return self.company
+
+    def get_absolute_url(self):
+        return reverse('counts_detail', args=[str(self.pk)])
+
+
+
+
+class Movement(models.Model):
+    company = models.CharField(max_length=200)
+    timeIn = models.DateTimeField(blank=True, null=True)
+    timeOut = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.company
@@ -16,16 +29,3 @@ class Company(models.Model):
     def get_absolute_url(self):
         return reverse('counts_detail', args=[str(self.pk)])
 
-class Entrance(models.Model):
-
-    timeIn = models.DateTimeField(blank=True, null=True)
-
-    def get_absolute_url(self):
-        return reverse('movement_detail', args=[str(self.pk)])
-
-class Exit(models.Model):
-
-    timeOut = models.DateTimeField(blank=True, null=True)
-
-    def get_absolute_url(self):
-        return reverse('movement_detail', args=[str(self.pk)])

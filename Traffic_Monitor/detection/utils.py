@@ -12,14 +12,14 @@ def get_graph():
     buffer.close()
     return graph
 
-def get_plot(x,y):
+def get_plot(x,y, name):
     plt.switch_backend('AGG')
-    plt.figure(figsize=(3,3))
-    # plt.title('Traffic over Time')
-    plt.plot(x,y)
+    plt.figure(figsize=(3,6))
+    #plt.title(name)
+    plt.bar(x,y)
     plt.xticks(rotation=45)
-    # plt.xlabel('Time')
-    # plt.ylabel('People')
+    #plt.xlabel('Time')
+    #plt.ylabel('Current Occupancy')
     plt.tight_layout()
     graph = get_graph()
     return graph

@@ -10,7 +10,7 @@ from .views import (
 
 urlpatterns = [
 	path("", SettingsView.as_view(), name="home"),
-	path("graph/", GraphView.as_view(), name="graph"),
+	path("graph/<str:company>/", GraphView.as_view(), name="graph"),
 	path('detection/new/', CompanyCreateView.as_view(), name='company_create'),
 	path("detection/<int:pk>/", CompanyDetailView.as_view(), name='company_detail'),
 	path("detection/<int:pk>/edit/", CompanyUpdateView.as_view(), name='company_edit'),
