@@ -12,7 +12,7 @@
 
 
         <div class="card opacity-4" style="width: 90vw;">
-            <div class="card-body p-3 bg-light text-dark">
+            <div class="card-body p-3 bg-light text-dark rounded shadow">
                 <h3 class="card-title">{{ object.company }}</h3>
                 <div class="d-flex justify-content-center">
                     <div class="d-flex">
@@ -23,8 +23,8 @@
                     </div>
                 </div>
                 <br>
-                <a href="{% url 'graph' object.company %}" class="btn btn-block btn-warning">Chart</a>
-                <a href="{% url 'company_edit' object.pk %}" class="btn btn-block btn-warning">Edit</a>
+                <a href="{% url 'graph' object.company %}" class="btn btn-block btn-warning shadow">Chart</a>
+                <a href="{% url 'company_edit' object.pk %}" class="btn btn-block btn-warning shadow">Edit</a>
             </div>
         </div>
         <br>

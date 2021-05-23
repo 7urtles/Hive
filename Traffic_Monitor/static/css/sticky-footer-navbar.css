@@ -36,12 +36,10 @@ html {
     color: white;
   }
   .grad {
-    height: 200px;
     background-color: #2C3539; /* For browsers that do not support gradients */
     /* background-image: linear-gradient(to bottom right, #8D918D, #2C3539); */
     background-image: url(https://wallpaperaccess.com/full/1634229.jpg);
     background-size: cover;
-
   }
   .opacity-0 {
     opacity:0!important;

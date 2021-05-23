@@ -8,7 +8,7 @@ def dataHandler(entrances, exits, datetimeIn, datetimeOut, totalUp, totalDown, x
             cursor = sqliteConnection.cursor()
             print("Connected to SQLite")
 
-            sql_update_query = """insert into detection_entrance(company, timeIn) values(?,?)"""
+            sql_update_query = """insert into detection_movement(company, timeIn) values(?,?)"""
             cursor.execute(sql_update_query,(company, datetimeIn,))
 
             sqliteConnection.commit()
@@ -30,7 +30,7 @@ def dataHandler(entrances, exits, datetimeIn, datetimeOut, totalUp, totalDown, x
             cursor = sqliteConnection.cursor()
             print("Connected to SQLite")
 
-            sql_update_query = """insert into detection_exit(company, timeOut) values(?,?)"""
+            sql_update_query = """insert into detection_movement(company, timeOut) values(?,?)"""
             cursor.execute(sql_update_query,(company, datetimeOut,))
 
             sqliteConnection.commit()

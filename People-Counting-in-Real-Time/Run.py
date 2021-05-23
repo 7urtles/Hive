@@ -17,7 +17,21 @@ t0 = time.time()
 #*********************************************
 #			   SETTINGS START
 #*********************************************
-company = "YardBar"
+print("\nPlease choose a company:\n")
+print("YardBar [1]")
+print("ShotStop [2]")
+print("Kaws [3]")
+print("Lotus [4]")
+company = input()
+if company == '1':
+	company = "YardBar"
+elif company == '2':
+	company = "ShotStop"
+elif company == '3':
+	company = "Kaws"
+elif company == '4':
+	company = "Lotus"
+
 #company = "ShotStop"
 #company = "Bridgers"
 #company = "Lotus"
