@@ -11,10 +11,10 @@
     {% for object in object_list %}
 
 
-        <div id="stats" class="card opacity-4" style="width: 90vw;">
-            <div class="card-body p-3 bg-light text-dark rounded shadow">
+        <div id="stats" class="card opacity-5" style="width: 90vw;">
+            <div class="card-body p-3 text-dark rounded shadow">
                 {% if chart %}
-                <h3 class="card-title">{{ object.company }}</h3>
+                <h3 class="card-body bg-light border shadow rounded">{{ object.company }}</h3>
                 <div class="card-body p-3 bg-dark text-light rounded shadow">
                     <!-- <h3 class="card-title">Entries/Exits</h3> -->
                     <div class="d-flex justify-content-center">
@@ -27,7 +27,7 @@
                     <br>
                 </div>
                 {% endif %}
-                <div class="rounded d-flex justify-content-center shadow">
+                <div class="card-body bg-light border mt-2 rounded d-flex justify-content-center shadow">
                     <div class="d-flex">
                         <p class="h4 text-left stat-items">Now: <br><span class="text-secondary">{{ object.current }}</span></p>
                         <p class="h4 text-left stat-items">Max: <br><span class="text-secondary">{{ object.capacity }}</span></p>
@@ -35,9 +35,11 @@
                         <p class="h4 text-left stat-items">Out: <br><span class="text-secondary">{{ object.exited }}</span></p>
                     </div>
                 </div>
-                <br>
-                <a href="{% url 'graph' object.company %}" class="btn btn-block btn-warning shadow">Chart</a>
-                <a href="{% url 'company_edit' object.pk %}" class="btn btn-block btn-warning shadow">Edit</a>
+                
+                <div class="mt-2">
+                    <a href="{% url 'graph' object.company %}"  class="btn btn-block btn-warning shadow">Chart</a>
+                    <a href="{% url 'company_edit' object.pk %}" class="btn btn-block btn-warning shadow">Edit</a>
+                </div>
             </div>
         </div>
         <br>

@@ -20,7 +20,7 @@ def get_plot(x,y,x2,y2):
     matplotlib.rc('ytick',color='w')
     matplotlib.rc('text',color='w')
     plt.switch_backend('AGG')
-    plt.figure(figsize=(3.2,3))
+    plt.figure(figsize=(3.2,2))
     # plt.title(name)
     plt.xlim(0,24)
     # plt.ylim(0,10)

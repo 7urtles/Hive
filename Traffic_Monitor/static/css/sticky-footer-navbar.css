@@ -16,10 +16,16 @@ html {
 }
   body {
     /* Margin bottom by footer height */
-    margin-bottom: 60px;
+    background-color: #f1e4de;
+    background-attachment: fixed;
+    background-position: center center;
+    overflow: hidden;
+    background-size: cover;
   }
   main{
-    margin-top: 10vh;
+    margin-top: 6vh;
+    margin-left: auto;
+    margin-right: auto;
   }
   .footer {
     position: fixed;
@@ -31,6 +37,26 @@ html {
     line-height: 60px; /* Vertically center the text there */
     background-color: #f5f5f5;
   }
+  .noscroll { overflow: hidden; }
+  .overlay { 
+    position: fixed; 
+    overflow-y: scroll;
+    top: 0; left: 5vw; right: 0; bottom: 0;
+}
+
+[aria-hidden="true"] {    
+   transition: opacity 1s, z-index 0s 1s;
+   width: 100vw;
+   z-index: -1; 
+   opacity: 0;  
+}
+
+[aria-hidden="false"] {  
+   transition: opacity 1s;
+   width: 100%;
+   z-index: 1;  
+   opacity: 1; 
+}
   .footer a{
     text-decoration: none;
     color: white;
@@ -38,7 +64,7 @@ html {
   .grad {
     background-color: #2C3539; /* For browsers that do not support gradients */
     /* background-image: linear-gradient(to bottom right, #8D918D, #2C3539); */
-    background-image: url(https://wallpaperaccess.com/full/1634229.jpg);
+    background-image: url(https://i.pinimg.com/736x/73/e9/6e/73e96e8bfc69429c60d1dcf782e3a99d.jpg);
     background-size: cover;
   }
   .opacity-0 {
@@ -54,7 +80,7 @@ html {
     opacity:0.6!important;
   }
   .opacity-4 {
-    opacity:.8!important;
+    opacity:.95!important;
   }
   .opacity-5 {
     opacity:1!important;
@@ -88,7 +114,6 @@ html {
   code {
     font-size: 80%;
   }
-
   .stat-items{
     margin: 1rem;
   }

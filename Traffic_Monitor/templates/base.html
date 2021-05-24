@@ -9,24 +9,26 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>{% block title %}Beehive{% endblock %}</title>
+    <title>{% block title %}Hive{% endblock %}</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/cover/">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sticky-footer-navbar/">
     <link href="{% static 'css/sticky-footer-navbar.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+
   </head>
 </head>
 <!-- <body class="text-center bg-secondary"> -->
-<body class="text-center grad">
+<body class="text-center grad noscroll">
   <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
 
     
     <header>
       <!-- Fixed navbar -->
       <nav class="shadow navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="/">Beehive</a>
+        <a class="navbar-brand" href="/"><i class="fab fa-forumbee"></i>&nbsp&nbspHive</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -66,7 +68,7 @@
     </header>
 
 
-    <main>
+    <main class="overlay">
       {% block content %}
       {% endblock %}
     </main>
