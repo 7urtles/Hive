@@ -14,17 +14,18 @@ def get_graph():
     buffer.close()
     return graph
 
-def get_plot(x,y,x2,y2, name):
+def get_plot(x,y,x2,y2):
     matplotlib.rc('axes',edgecolor='w')
     matplotlib.rc('xtick',color='w')
     matplotlib.rc('ytick',color='w')
+    matplotlib.rc('text',color='w')
     plt.switch_backend('AGG')
-    plt.figure(figsize=(3.5,3))
-    #plt.title(name)
+    plt.figure(figsize=(3.2,3))
+    # plt.title(name)
     plt.xlim(0,24)
     # plt.ylim(0,10)
     plt.bar(x,y, width = .8, label = "Entries")
-    plt.bar(x2,y2, width = .5, label = "Exits")
+    plt.bar(x2,y2, width = .3, label = "Exits")
     plt.legend(loc="upper left")
     plt.xticks(rotation=45)
     plt.xlabel('Time (24 Hour)', color='white')
