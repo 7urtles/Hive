@@ -6,16 +6,26 @@
 
 {% block content %}
 
-<div class="login-form">
-  <br><h2>Please Login</h2><br>
-<style>.asteriskField{display: none};</style>
 
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.username|as_crispy_field }}<br>
-        {{ form.password|as_crispy_field }}<br><br><br><br><br>
-        <button type="submit" class="btn-block btn-dark btn-lg">Login</button><br>
-    </form>
+<div id="stats" class="card opacity-5 mt-5" style="width: 90vw;">
+  <div class="card-body p-3 text-dark rounded shadow">
+      <h3 class="card-body bg-light border shadow rounded">Welcome to Hive</h3>
+      <div class="card-body p-3 bg-dark text-light rounded shadow">
+          <!-- <h3 class="card-title">Entries/Exits</h3> -->
+          <div class="login-form">
+            <br><h2>Please Login</h2><br>
+          <style>.asteriskField{display: none};</style>
+          
+              <form action="" method="post">
+                  {% csrf_token %}
+                  {{ form.username|as_crispy_field }}<br>
+                  {{ form.password|as_crispy_field }}<br><br><br>
+                  <button type="submit" class="shadow btn-block btn-light btn-lg">Enter</button><br>
+              </form>
+          </div>
+          <br>
+      </div>
+
+  </div>
 </div>
-
 {% endblock content %}

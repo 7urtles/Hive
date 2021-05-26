@@ -7,18 +7,9 @@ from django.views.generic.edit import (
 )
 # utils graphing import
 from .utils import get_plot
+from django.contrib.auth.decorators import login_required
 
-# # Create your views here.
-# class GraphView(ListView):
-#     template_name = "graph.html"
-#     def as_view():
-#         def graph_function(request,pk):
-#             model = Company.objects.all()
-#             x = [x.company for x in model]
-#             y = [y.current for y in model]
-#             chart = get_plot(x, y)
-#             return render(request, 'graph.html', {'chart': chart, 'object_list':model})
-#         return graph_function
+
 
 class GraphView(DetailView):
     template_name = "graph.html"
@@ -63,11 +54,10 @@ class GraphView(DetailView):
             for i in x2:
                 y2.append(x2.count(i))
 
-            print("X: ", x, 'Y :', y, "X2 :", x2, "Y2 :", y2)
-
             chart = get_plot(x, y, x2, y2)
             return render(request, 'graph.html', {'chart': chart, 'object_list':company_model, 'entrances':movement_model})
         return graph_function
+
 
 class SettingsView(ListView):
     model = Company
@@ -92,10 +82,8 @@ class SettingsView(ListView):
             # iterate objects in the movement model
                 for item in movement_model:
                     #if company name in the model is the one asked for
-                    print("looking here------------------> ",movement_model[count].company,"isnt equal to", item.company,"?")
                     company_model_name = company_model[count].company
                     if company_model_name == item.company:
-                        print('entered if as :',company_model_name)
                         # if the iterations entry time is not NONE
                         if item.timeOut != None:
                             #add the the date/time to a list
@@ -115,13 +103,10 @@ class SettingsView(ListView):
                     y.append(x.count(i))
                 for i in x2:
                     y2.append(x2.count(i))
-                print("X: ", x, 'Y :', y, "X2 :", x2, "Y2 :", y2)
                 if count == 0:
                     chart = get_plot(x, y, x2, y2)
-                    print('CHART 1 SAVED')
                 if count == 1:
                     chart1 = get_plot(x, y, x2, y2)
-                    print('CHART 2 SAVED')
                     return render(request, 'home.html', {'chart': chart, 'chart1': chart1, 'object_list':company_model, 'entrances':movement_model})
                 count += 1
                 
@@ -139,7 +124,7 @@ class CompanyCreateView(CreateView):
 
 class CompanyUpdateView(UpdateView):
     model = Company
-    template_name = 'company_edit.html'
+    template_name = 'edit.html'
     fields = ['company', 'entered', 'exited', 'current', 'capacity']
     success_url = reverse_lazy('home')
 

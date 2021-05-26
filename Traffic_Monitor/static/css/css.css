@@ -21,6 +21,7 @@ html {
     background-position: center center;
     overflow: hidden;
     background-size: cover;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
   }
   main{
     margin-top: 6vh;
@@ -41,9 +42,12 @@ html {
   .overlay { 
     position: fixed; 
     overflow-y: scroll;
-    top: 0; left: 5vw; right: 0; bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
 }
-
+.center{
+  margin-left: auto;
+  margin-right: auto;
+}
 [aria-hidden="true"] {    
    transition: opacity 1s, z-index 0s 1s;
    width: 100vw;
@@ -92,11 +96,16 @@ html {
   }
   .login-link {
     position: relative;
-    top: 40vh;
+    top: 10vh;
   }
   .login-from {
     position: relative;
     top: 20vh;
+  }
+  .card{
+    max-width: 30rem;
+    margin-left: auto;
+    margin-right: auto;
   }
   /* Custom page CSS
   -------------------------------------------------- */

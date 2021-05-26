@@ -29,35 +29,34 @@
                 {% endif %}
                 <div class="card-body bg-light border mt-2 rounded d-flex justify-content-center shadow">
                     <div class="d-flex">
-                        <p class="h4 text-left stat-items">Now: <br><span class="text-secondary">{{ object.current }}</span></p>
-                        <p class="h4 text-left stat-items">Max: <br><span class="text-secondary">{{ object.capacity }}</span></p>
-                        <p class="h4 text-left stat-items">In: <br><span class="text-secondary">{{ object.entered }}</span></p>
-                        <p class="h4 text-left stat-items">Out: <br><span class="text-secondary">{{ object.exited }}</span></p>
+                        <p class="h4 text-center stat-items">Now: <br><span class=" text-secondary">{{ object.current }}</span></p>
+                        <p class="h4 text-center stat-items">Max: <br><span class="text-secondary">{{ object.capacity }}</span></p>
+                        <p class="h4 text-center stat-items">In: <br><span class="text-secondary">{{ object.entered }}</span></p>
+                        <p class="h4 text-center stat-items">Out: <br><span class="text-secondary">{{ object.exited }}</span></p>
                     </div>
                 </div>
                 
                 <div class="mt-2">
-                    <a href="{% url 'graph' object.company %}"  class="btn btn-block btn-warning shadow">Chart</a>
-                    <a href="{% url 'company_edit' object.pk %}" class="btn btn-block btn-warning shadow">Edit</a>
+                    <a href="{% url 'graph' object.company %}"  class="btn btn-block btn-warning shadow">Details</a>
+                    <a href="{% url 'edit' object.pk %}" class="btn btn-block btn-warning shadow">Edit</a>
                 </div>
             </div>
         </div>
         <br>
-    <!-- <div class="d-flex justify-content-center">
-            <div class="d-flex">
-                <p class="h4 text-left stat-items">Now: <br><span class="text-secondary">{{ object.current }}</span></p>
-                <p class="h4 text-left stat-items">Max: <br><span class="text-secondary">{{ object.capacity }}</span></p>
-                <p class="h4 text-left stat-items">In: <br><span class="text-secondary">{{ object.entered }}</span></p>
-                <p class="h4 text-left stat-items">Out: <br><span class="text-secondary">{{ object.exited }}</span></p>
-            </div>
-        </div><br> -->
     {% endfor %}
     
 
 {% else %}
-    <h1 class="greeting">Enter the Beehive</h1>
-    <a href="{% url 'login' %}" class="shadow btn-block btn-dark btn-lg login-link"><h2>PLEASE LOGIN</h2></a>
-{% endif %}
+    <div id="stats" class="card opacity-5 mt-5 login-link" style="width: 90vw;">
+  <div class="card-body p-3 text-dark rounded shadow">
+      <h3 class="card-body bg-light border shadow rounded">Welcome to Hive</h3>
+      <div class="card-body p-3 bg-dark text-light rounded shadow">
+            <br><a href="{% url 'login' %}" class="shadow btn-block btn-light btn"><h4>Please Login</h4></a>
+            <br><h4>-or-</h4><br>
+            <a href="{% url 'signup' %}" class="shadow btn-block btn-light btn"><h4>Register an Account</h4></a><br>
+      </div>
+  </div>
+</div>{% endif %}
 
 
 

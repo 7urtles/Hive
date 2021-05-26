@@ -1,12 +1,24 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-  </form>
+  <style>.asteriskField{display: none};</style>
+
+  <div id="stats" class="card opacity-5 mt-5" style="width: 90vw;">
+    <div class="card-body p-3 text-dark rounded shadow">
+        <h3 class="card-body bg-light border shadow rounded">Sign Up</h3>
+        <div class="card-body p-5 bg-dark text-light rounded shadow">
+          <form method="post">
+            {% csrf_token %}
+            <!-- {{ form|crispy }} -->
+            {{ form.username|as_crispy_field }}<br>
+            {{ form.password1|as_crispy_field }}<br>
+            {{ form.password2|as_crispy_field }}<br>
+            <button type="submit" class="btn-block btn-light btn-lg text-dark">Complete</button>
+          </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 192.168.1.248:8000
+From: webmaster@localhost
+To: charleshparmley@icloud.com
+Date: Wed, 26 May 2021 01:21:43 -0000
+Message-ID: <162199210331.6213.16392784679892860359@Desktop>
+
+
+You're receiving this email because you requested a password reset for your user account at 192.168.1.248:8000.
+
+Please go to the following page and choose a new password:
+
+http://192.168.1.248:8000/accounts/reset/Mw/an8eg7-267543189368c04a151264ea3cf9031f/
+
+Your username, in case you’ve forgotten: charles
+
+Thanks for using our site!
+
+The 192.168.1.248:8000 team
+
+
+
+-------------------------------------------------------------------------------
