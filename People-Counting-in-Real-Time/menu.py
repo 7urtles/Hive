@@ -14,7 +14,7 @@ def launch_menu():
     list_name_counter = 0
     for option in options_list:
         print("\nPlease choose a", option, ":")
-        selection_number_counter = 0
+        selection_number_counter = 1
         
         for list in list_names:
             print('-----------------')
@@ -22,7 +22,7 @@ def launch_menu():
                 print("[",selection_number_counter,"]", item)
                 selection_number_counter += 1
             print('-----------------')
-            option_selections.append(list_names[list_name_counter][int(input("--> "))])
+            option_selections.append(list_names[list_name_counter][int(input("--> "))-1])
             list_name_counter += 1
             break
 
