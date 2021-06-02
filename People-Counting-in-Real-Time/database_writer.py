@@ -1,18 +1,18 @@
 import sqlite3
 
-def dataHandler(entrances, exits, datetimeIn, datetimeOut, totalUp, totalDown, x, company):
+def dataHandler(entrances, exits, datetimeIn, datetimeOut, totalUp, totalDown, people_inside, company):
     # Every time someone new enters save the time
     for date in entrances:
         try:
-            sqliteConnection = sqlite3.connect('/home/charles/Documents/FSDI_Final/Traffic_Monitor/db.sqlite3')
+            sqliteConnection = sqlite3.connect('/home/charles/Documents/FSDI_Final/Hive/db.sqlite3')
             cursor = sqliteConnection.cursor()
-            print("Connected to SQLite")
+            # print("Connected to SQLite")
 
             sql_update_query = """insert into detection_movement(company, timeIn) values(?,?)"""
             cursor.execute(sql_update_query,(company, datetimeIn,))
 
             sqliteConnection.commit()
-            print("Record Updated successfully ")
+            # print("Record Updated successfully ")
             cursor.close()
 
         except sqlite3.Error as error:
@@ -21,20 +21,20 @@ def dataHandler(entrances, exits, datetimeIn, datetimeOut, totalUp, totalDown, x
         finally:
             if sqliteConnection:
                 sqliteConnection.close()
-                print("The SQLite connection is closed")
+                # print("The SQLite connection is closed")
                 
     # Every time someone new exits save the time
     for date in exits:
         try:
-            sqliteConnection = sqlite3.connect('/home/charles/Documents/FSDI_Final/Traffic_Monitor/db.sqlite3')
+            sqliteConnection = sqlite3.connect('/home/charles/Documents/FSDI_Final/Hive/db.sqlite3')
             cursor = sqliteConnection.cursor()
-            print("Connected to SQLite")
+            # print("Connected to SQLite")
 
             sql_update_query = """insert into detection_movement(company, timeOut) values(?,?)"""
             cursor.execute(sql_update_query,(company, datetimeOut,))
 
             sqliteConnection.commit()
-            print("Record Updated successfully ")
+            # print("Record Updated successfully ")
             cursor.close()
 
         except sqlite3.Error as error:
@@ -43,16 +43,16 @@ def dataHandler(entrances, exits, datetimeIn, datetimeOut, totalUp, totalDown, x
         finally:
             if sqliteConnection:
                 sqliteConnection.close()
-                print("The SQLite connection is closed")
+                # print("The SQLite connection is closed")
     try:
-    	sqliteConnection = sqlite3.connect('/home/charles/Documents/FSDI_Final/Traffic_Monitor/db.sqlite3')
+    	sqliteConnection = sqlite3.connect('/home/charles/Documents/FSDI_Final/Hive/db.sqlite3')
     	cursor = sqliteConnection.cursor()
-    	print("Connected to SQLite")
+    	# print("Connected to SQLite")
     	sql_update_query = """Update detection_company set entered = ?, exited = ?, current = ? where company = ?"""
-    	cursor.execute(sql_update_query,(totalDown,totalUp,x[0],company))
+    	cursor.execute(sql_update_query,(totalDown,totalUp,people_inside[0],company))
 
     	sqliteConnection.commit()
-    	print("Record Updated successfully ")
+    	# print("Record Updated successfully ")
     	cursor.close()
 
     except sqlite3.Error as error:
@@ -61,4 +61,4 @@ def dataHandler(entrances, exits, datetimeIn, datetimeOut, totalUp, totalDown, x
     finally:
     	if sqliteConnection:
     		sqliteConnection.close()
-    		print("The SQLite connection is closed")
+    		# print("The SQLite connection is closed")

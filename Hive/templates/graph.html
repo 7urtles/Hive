@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if chart %}
+    {% if user.is_authenticated %}
+        {% for object in object_list %}
+            <div id="stats" class="card opacity-5 mt-5" style="width: 90vw;">
+                <div class="card-body p-3 text-dark rounded shadow">
+                    {% if chart %}
+                    <h3 class="card-body bg-light border shadow rounded">{{ object.company }}</h3>
+                    <div class="card-body p-3 bg-dark text-light rounded shadow">
+                        <!-- <h3 class="card-title">Entries/Exits</h3> -->
+                        <div class="d-flex justify-content-center">
+                            {% if object.company == "Kaws" %}
+                            <img src="data:image/png;base64, {{chart|safe}}">
+                            {% elif object.company == "YardBar" %}
+                            <img src="data:image/png;base64, {{chart1|safe}}">
+                            {% endif %}
+                        </div>
+                        <br>
+                    </div>
+                    {% endif %}
+                    <div class="card-body bg-light border mt-2 rounded d-flex justify-content-center shadow">
+                        <div class="d-flex">
+                            <p class="h4 text-center stat-items">Now: <br><span class=" text-secondary">{{ object.current }}</span></p>
+                            <p class="h4 text-center stat-items">Max: <br><span class="text-secondary">{{ object.capacity }}</span></p>
+                            <p class="h4 text-center stat-items">In: <br><span class="text-secondary">{{ object.entered }}</span></p>
+                            <p class="h4 text-center stat-items">Out: <br><span class="text-secondary">{{ object.exited }}</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-2">
+                        <a href="{% url 'graph' object.company %}"  class="btn btn-block btn-warning shadow">Details</a>
+                        <a href="{% url 'edit' object.pk %}" class="btn btn-block btn-warning shadow">Edit</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,131 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+  }
+  .main-font{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+  }
+  .shadow {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+
+    /* the rest of your styling */
+}
+  body {
+    /* Margin bottom by footer height */
+    background-color: #f1e4de;
+    background-attachment: fixed;
+    background-position: center center;
+    overflow: hidden;
+    background-size: cover;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+  }
+  .card-bg-color{
+    background-color: #75797e;
+  }
+  main{
+    margin-top: 5vh;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .footer {
+    position: fixed;
+    right: 0px;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
+  }
+  .noscroll { overflow: hidden; }
+  .overlay { 
+    position: fixed; 
+    overflow-y: scroll;
+    top: 0; left: 0; right: 0; bottom: 0;
+}
+.center{
+  margin-left: auto;
+  margin-right: auto;
+}
+[aria-hidden="true"] {    
+   transition: opacity 1s, z-index 0s 1s;
+   width: 100vw;
+   z-index: -1; 
+   opacity: 0;  
+}
+
+[aria-hidden="false"] {  
+   transition: opacity 1s;
+   width: 100%;
+   z-index: 1;  
+   opacity: 1; 
+}
+  .footer a{
+    text-decoration: none;
+    color: white;
+  }
+  .grad {
+    background-color: #2C3539; /* For browsers that do not support gradients */
+    /* background-image: linear-gradient(to bottom right, #8D918D, #2C3539); */
+    background-image: url(https://i.pinimg.com/736x/73/e9/6e/73e96e8bfc69429c60d1dcf782e3a99d.jpg);
+    background-size: cover;
+  }
+  .opacity-0 {
+    opacity:0!important;
+  }
+  .opacity-1 {
+    opacity:0.2!important;
+  }
+  .opacity-2 {
+    opacity:0.4!important;
+  }
+  .opacity-3 {
+    opacity:0.6!important;
+  }
+  .opacity-4 {
+    opacity:.95!important;
+  }
+  .opacity-5 {
+    opacity:1!important;
+  }
+  .greeting{
+    position: relative;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    top: 15vh;
+  }
+  .login-link {
+    position: relative;
+    top: 10vh;
+  }
+  .login-from {
+    position: relative;
+    top: 20vh;
+  }
+  .card{
+    max-width: 30rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* Custom page CSS
+  -------------------------------------------------- */
+  /* Not required for template or sticky footer method. */
+  
+  body > .container {
+    padding: 60px 15px 0;
+  }
+  
+  .footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
+  code {
+    font-size: 80%;
+  }
+  .stat-items{
+    margin: 1rem;
+  }

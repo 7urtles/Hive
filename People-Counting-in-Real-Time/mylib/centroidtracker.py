@@ -35,6 +35,15 @@ class CentroidTracker:
 		# both of our respective dictionaries
 		del self.objects[objectID]
 		del self.disappeared[objectID]
+		# try:
+		# 	del self.objects[objectID]
+		# except:
+		# 	print('item does not exist')
+		# try:
+		# 	del self.disappeared[objectID]
+		# except:
+		# 	print('item does not exist')
+		
 
 	def update(self, rects):
 		# check to see if the list of input bounding box rectangles

@@ -18,10 +18,10 @@ t0 = time.time()
 #			   SETTINGS START
 #*********************************************
 print("\nPlease choose a company:\n")
-print("YardBar [1]")
+print("YardBar  [1]")
 print("ShotStop [2]")
-print("Kaws [3]")
-print("Lotus [4]")
+print("Kaws     [3]")
+print("Lotus    [4]")
 company = input()
 if company == '1':
 	company = "YardBar"
@@ -36,9 +36,12 @@ elif company == '4':
 #company = "Bridgers"
 #company = "Lotus"
 
-camera_type = 'webcam'
-#camera_type = 'ipcam'
-
+#camera_type = 'webcam'
+camera_type = input('Select Camera Type: \n\nipCamera  [1]\nWebcam    [2]\n')
+if camera_type == '1':
+	camera_type = "ipcam"
+elif camera_type == '2':
+	camera_type = "webcam"
 datetimeIn = [datetime.datetime.now()]
 datetimeOut = [datetime.datetime.now()]
 #*********************************************
@@ -46,8 +49,11 @@ datetimeOut = [datetime.datetime.now()]
 #*********************************************
 
 def run(company,camera_type, datetimeIn, datetimeOut):
+	
 	entrances = []
 	exits = []
+	movementSpeed = 60
+
 	# construct the argument parse and parse the arguments
 	ap = argparse.ArgumentParser()
 	ap.add_argument("-p", "--prototxt", required=False,
@@ -59,7 +65,7 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 	ap.add_argument("-o", "--output", type=str,
 		help="path to optional output video file")
 	# confidence default 0.4
-	ap.add_argument("-c", "--confidence", type=float, default=0.55,
+	ap.add_argument("-c", "--confidence", type=float, default=0.65,
 		help="minimum probability to filter weak detections")
 	ap.add_argument("-s", "--skip-frames", type=int, default=30,
 		help="# of skip frames between detections")
@@ -121,6 +127,7 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 
 	# loop over frames from the video stream
 	while True:
+		
 		# grab the next frame and handle if we are reading from either
 		frame = vs.read()
 		if camera_type == 'webcam':
@@ -143,6 +150,7 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 		if W is None or H is None:
 			(H, W) = frame.shape[:2]
 
+		barrier = W // 2
 		# if we are supposed to be writing a video to disk, initialize
 		# the writer
 		if args["output"] is not None and writer is None:
@@ -223,14 +231,18 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 				rects.append((startX, startY, endX, endY))
 
 		# Default code commented out above
-		cv2.line(frame, (W // 2, 0), (W // 2, H), (0, 0, 0), 2)
+		cv2.line(frame, (barrier, 0), (barrier, H), (0, 0, 0), 2)
 
 		# use the centroid tracker to associate the (1) old object
 		# centroids with (2) the newly computed object centroids
 		objects = ct.update(rects)
 
+		# using a copy of the list, or the for loop crashes due to mutating it later
+		new_objects_list = objects.copy()
+
 		# loop over the tracked objects
-		for (objectID, centroid) in objects.items():
+		for (objectID, centroid) in new_objects_list.items():
+			print(objects.items())
 			# check to see if a trackable object exists for the current
 			# object ID
 			to = trackableObjects.get(objectID, None)
@@ -247,37 +259,35 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 				# us in which direction the object is moving (negative for
 				# 'up' and positive for 'down')
 				y = [c[0] for c in to.centroids]
-				direction = centroid[1] - np.mean(y)
+				starting_location = y[0]
+				direction = centroid[0] - np.mean(y[:-30])
+				current_location = centroid[0]
 
-				#direction = centroid[1] - y[-1]
+
 				to.centroids.append(centroid)
-
 				# check to see if the object has been counted or not
 				if not to.counted:
 					# if the direction is negative (indicating the object
 					# is moving left) AND the centroid is left the center
 					# line, count the object
-					if direction < 0 and centroid[0] < W // 2:
+					if direction < -movementSpeed and current_location < barrier and starting_location > barrier:
 						totalUp += 1
 						empty.append(totalUp)
 						to.counted = True
 						datetimeIn = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 						datetimeOut = dateutil.parser.parse(datetimeIn)
-						print(datetimeIn)
 						entrances.append(datetimeIn)
 
 					# if the direction is positive (indicating the object
 					# is moving right) AND the centroid is right the
 					# center line, count the object
-					elif direction > 0 and centroid[0] > W // 2:
+					elif direction > movementSpeed and current_location > barrier and starting_location < barrier:
 						totalDown += 1
 						empty1.append(totalDown)
 						to.counted = True
 						datetimeOut = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 						datetimeOut = dateutil.parser.parse(datetimeOut)
-						print(datetimeOut)
-						exits.append(datetimeOut)
-						
+						exits.append(datetimeOut)						
 					x = []
 					
 					
@@ -285,7 +295,7 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 					x.append(len(empty1)-len(empty))
 					#print("Total people inside:", x)
 
-					
+									
 					# *************************************************
 					#          INSERTED FUNCTION CALL DATABASE
 					# *************************************************
@@ -296,6 +306,12 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 					# *************************************************
 					#            
 					# *************************************************
+
+				# Deletes an object once counted. Must 
+				# Mutates list the for loop is using, which is not allowed
+				else:
+					ct.deregister(objectID)
+
 
 			# store the trackable object in our dictionary
 			trackableObjects[objectID] = to
@@ -345,8 +361,8 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 		
 
 		# if the `q` key was pressed, break from the loop
-		if key == ord("q"):
-			break
+		# if key == ord("q"):
+			# break
 
 		totalFrames += 1
 		fps.update()
