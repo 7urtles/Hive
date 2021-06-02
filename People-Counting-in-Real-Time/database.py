@@ -41,3 +41,5 @@ def dataHandler(entrances, exits, datetimeIn, datetimeOut, totalUp, totalDown, p
     finally:
     	if sqliteConnection:
     		sqliteConnection.close()
+
+    print("--Database Updated--")
