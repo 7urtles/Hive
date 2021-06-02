@@ -11,44 +11,18 @@ from itertools import zip_longest
 import dateutil.parser
 
 #added import for sqlite3
-from database_writer import dataHandler
+from database import dataHandler
+from menu import launch_menu
+
 t0 = time.time()
 
-#*********************************************
-#			   SETTINGS START
-#*********************************************
-print("\nPlease choose a company:\n")
-print("YardBar  [1]")
-print("ShotStop [2]")
-print("Kaws     [3]")
-print("Lotus    [4]")
+# calls the menu script
+company, camera_type = launch_menu()
 
-company = input()
-if company == '1':
-	company = "YardBar"
-elif company == '2':
-	company = "ShotStop"
-elif company == '3':
-	company = "Kaws"
-elif company == '4':
-	company = "Lotus"
-
-#company = "ShotStop"
-#company = "Bridgers"
-#company = "Lotus"
-
-#camera_type = 'webcam'
-camera_type = input('Select Camera Type: \n\nipCamera  [1]\nWebcam    [2]\n')
-if camera_type == '1':
-	camera_type = "ipcam"
-elif camera_type == '2':
-	camera_type = "webcam"
 
 datetimeIn = [datetime.datetime.now()]
 datetimeOut = [datetime.datetime.now()]
-#*********************************************
-#				 SETTINGS END
-#*********************************************
+
 
 def run(company,camera_type, datetimeIn, datetimeOut):
 	
@@ -134,7 +108,7 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 		frame = vs.read()
 		if camera_type == 'webcam':
 			frame = cv2.resize(frame[1], None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
-		else:
+		elif camera_type == 'ipcam':
 			frame = frame[1] if args.get("input", False) else frame
 
 		# if we are viewing a video and we did not grab a frame then we
@@ -307,10 +281,10 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 					# *************************************************
 					dataHandler(entrances, exits, datetimeIn, datetimeOut, 
 								totalUp, totalDown, x, company)
+
 					# Clearing variables for next time function is called
 					entrances = []
 					exits = []
-					print("Updated Statistics Saved")
 					# *************************************************
 					#            
 					# *************************************************
