@@ -1,64 +1,43 @@
 import sqlite3
 
 def dataHandler(entrances, exits, datetimeIn, datetimeOut, totalUp, totalDown, people_inside, company):
-    # Every time someone new enters save the time
+    # Connect to Database
+    sqliteConnection = sqlite3.connect('/home/charles/Documents/FSDI_Final/Hive/db.sqlite3')
+    cursor = sqliteConnection.cursor()
+
+    # Update entrance times
     for date in entrances:
         try:
-            sqliteConnection = sqlite3.connect('/home/charles/Documents/FSDI_Final/Hive/db.sqlite3')
-            cursor = sqliteConnection.cursor()
-            # print("Connected to SQLite")
-
             sql_update_query = """insert into detection_movement(company, timeIn) values(?,?)"""
             cursor.execute(sql_update_query,(company, datetimeIn,))
-
             sqliteConnection.commit()
-            # print("Record Updated successfully ")
-            cursor.close()
 
         except sqlite3.Error as error:
             print("Failed to update sqlite table", error)
             
-        finally:
-            if sqliteConnection:
-                sqliteConnection.close()
-                # print("The SQLite connection is closed")
                 
-    # Every time someone new exits save the time
+    # Update exit times
     for date in exits:
         try:
-            sqliteConnection = sqlite3.connect('/home/charles/Documents/FSDI_Final/Hive/db.sqlite3')
-            cursor = sqliteConnection.cursor()
-            # print("Connected to SQLite")
-
             sql_update_query = """insert into detection_movement(company, timeOut) values(?,?)"""
             cursor.execute(sql_update_query,(company, datetimeOut,))
-
             sqliteConnection.commit()
-            # print("Record Updated successfully ")
-            cursor.close()
 
         except sqlite3.Error as error:
             print("Failed to update sqlite table", error)
-            
-        finally:
-            if sqliteConnection:
-                sqliteConnection.close()
-                # print("The SQLite connection is closed")
+
+
+    # Update Current Counts
     try:
-    	sqliteConnection = sqlite3.connect('/home/charles/Documents/FSDI_Final/Hive/db.sqlite3')
-    	cursor = sqliteConnection.cursor()
-    	# print("Connected to SQLite")
     	sql_update_query = """Update detection_company set entered = ?, exited = ?, current = ? where company = ?"""
     	cursor.execute(sql_update_query,(totalDown,totalUp,people_inside[0],company))
-
     	sqliteConnection.commit()
-    	# print("Record Updated successfully ")
-    	cursor.close()
 
     except sqlite3.Error as error:
     	print("Failed to update sqlite table", error)
         
+
+    # Close Connection to Database
     finally:
     	if sqliteConnection:
     		sqliteConnection.close()
-    		# print("The SQLite connection is closed")

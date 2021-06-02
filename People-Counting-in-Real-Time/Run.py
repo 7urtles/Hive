@@ -310,7 +310,7 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 					# Clearing variables for next time function is called
 					entrances = []
 					exits = []
-					print("Data Saved")
+					print("Updated Statistics Saved")
 					# *************************************************
 					#            
 					# *************************************************
