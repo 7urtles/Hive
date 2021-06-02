@@ -22,6 +22,7 @@ print("YardBar  [1]")
 print("ShotStop [2]")
 print("Kaws     [3]")
 print("Lotus    [4]")
+
 company = input()
 if company == '1':
 	company = "YardBar"
@@ -42,6 +43,7 @@ if camera_type == '1':
 	camera_type = "ipcam"
 elif camera_type == '2':
 	camera_type = "webcam"
+
 datetimeIn = [datetime.datetime.now()]
 datetimeOut = [datetime.datetime.now()]
 #*********************************************
@@ -242,7 +244,6 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 
 		# loop over the tracked objects
 		for (objectID, centroid) in new_objects_list.items():
-			print(objects.items())
 			# check to see if a trackable object exists for the current
 			# object ID
 			to = trackableObjects.get(objectID, None)
@@ -296,20 +297,25 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 					#print("Total people inside:", x)
 
 									
+					
+
+				# If object crossed the barrier and got counted
+				else:
+
 					# *************************************************
-					#          INSERTED FUNCTION CALL DATABASE
+					#          	  Save Updated Data to Database
 					# *************************************************
-					dataHandler(entrances, exits, datetimeIn, datetimeOut, totalUp, totalDown, x, company)
+					dataHandler(entrances, exits, datetimeIn, datetimeOut, 
+								totalUp, totalDown, x, company)
 					# Clearing variables for next time function is called
 					entrances = []
 					exits = []
+					print("Data Saved")
 					# *************************************************
 					#            
 					# *************************************************
 
-				# Deletes an object once counted. Must 
-				# Mutates list the for loop is using, which is not allowed
-				else:
+					# Deregister the tracker
 					ct.deregister(objectID)
 
 
@@ -318,30 +324,40 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 
 			# draw both the ID of the object and the centroid of the
 			# object on the output frame
-			text = "ID {}".format(objectID)
+			# text = "ID {}".format(objectID)
+			text = "Person"
 			cv2.putText(frame, text, (centroid[0] - 10, centroid[1] - 10),
 				cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
 			cv2.circle(frame, (centroid[0], centroid[1]), 4, (255, 255, 255), -2)
 
+
+
 		# construct a tuple of information we will be displaying on the
 		info = [
 		("Exited", totalUp),
-		("Entered", totalDown),
+	
 		# ("Status", status),
 		]
 
 		info2 = [
-		("People inside", x),
+		("Entered", totalDown),
 		]
 
+		info3 = [
+		("Currently", x),
+		]
         # Display the output
 		for (i, (k, v)) in enumerate(info):
 			text = "{}: {}".format(k, v)
 			cv2.putText(frame, text, (10, H - ((i * 20) + 20)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
-
+		
 		for (i, (k, v)) in enumerate(info2):
 			text = "{}: {}".format(k, v)
-			cv2.putText(frame, text, (265, H - ((i * 20) + 60)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
+			cv2.putText(frame, text, (280, H - ((i * 20) + 20)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
+
+		# for (i, (k, v)) in enumerate(info3):
+			# text = "{}: {}".format(k, v)
+			# cv2.putText(frame, text, (265, H - ((i * 20) + 60)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
 
 		# Initiate a simple log to save data at end of the day
 		if config.Log:
@@ -360,9 +376,9 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 		key = cv2.waitKey(1) & 0xFF
 		
 
-		# if the `q` key was pressed, break from the loop
-		# if key == ord("q"):
-			# break
+		#if the `q` key was pressed, break from the loop
+		if key == ord("q"):
+			break
 
 		totalFrames += 1
 		fps.update()
