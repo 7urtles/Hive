@@ -1,12 +1,14 @@
 import matplotlib
 import matplotlib.pyplot as plt 
-import numpy as np
 import base64
 from io import BytesIO
+
+from numpy import imag
 
 def get_graph():
     buffer = BytesIO()
     plt.savefig(buffer, format='png', transparent=True)
+    plt.clf()
     buffer.seek(0)
     image_png = buffer.getvalue()
     graph = base64.b64encode(image_png)

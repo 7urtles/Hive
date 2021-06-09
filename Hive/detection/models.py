@@ -9,6 +9,8 @@ class Company(models.Model):
     exited = models.IntegerField(default=0)
     current = models.IntegerField(default=0)
     capacity = models.IntegerField(default=0)
+    camera_url = models.CharField(max_length=200)
+
     def __str__(self):
         return self.company
 

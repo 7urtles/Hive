@@ -10,14 +10,19 @@ import time, dlib, cv2, datetime
 from itertools import zip_longest
 import dateutil.parser
 
-#added import for sqlite3
-from database import dataHandler
-from menu import launch_menu
+#added imports for sqlite3 & starup settings/menu
+from database import DataUpdater
+from startup import Setup
 
 t0 = time.time()
 
-# calls the menu script
-company, camera_type = launch_menu()
+# *************************************************
+#        	  Calling Startup Script
+# *************************************************
+company, camera_type, camera_url = Setup().create_menu()
+# *************************************************
+#            
+# *************************************************
 
 
 datetimeIn = [datetime.datetime.now()]
@@ -41,7 +46,7 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 	ap.add_argument("-o", "--output", type=str,
 		help="path to optional output video file")
 	# confidence default 0.4
-	ap.add_argument("-c", "--confidence", type=float, default=0.65,
+	ap.add_argument("-c", "--confidence", type=float, default=0.7,
 		help="minimum probability to filter weak detections")
 	ap.add_argument("-s", "--skip-frames", type=int, default=30,
 		help="# of skip frames between detections")
@@ -59,11 +64,11 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 
 	# if a video path was not supplied, grab a reference to the ip camera
 	if not args.get("input", False):
-		print("[INFO] Starting the live stream..")
+		# print("[INFO] Starting the live stream..")
 		if camera_type == "webcam":
 			vs = cv2.VideoCapture(0)
 		elif camera_type == "ipcam":
-			vs = VideoStream(config.url).start()
+			vs = VideoStream(camera_url).start()
 		time.sleep(2.0)
 
 	# otherwise, grab a reference to the video file
@@ -242,9 +247,10 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 				to.centroids.append(centroid)
 				# check to see if the object has been counted or not
 				if not to.counted:
-					# if the direction is negative (indicating the object
-					# is moving left) AND the centroid is left the center
-					# line, count the object
+
+					# if the direction is less than the movement speed
+					# and the centroid is left the center line
+					# and the centroid started on the right of the barrier
 					if direction < -movementSpeed and current_location < barrier and starting_location > barrier:
 						totalUp += 1
 						empty.append(totalUp)
@@ -253,9 +259,9 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 						datetimeOut = dateutil.parser.parse(datetimeIn)
 						entrances.append(datetimeIn)
 
-					# if the direction is positive (indicating the object
-					# is moving right) AND the centroid is right the
-					# center line, count the object
+					# if the direction is greater than the movement speed
+					# and the centroid is right of the barrier
+					# and the centroid started on the left of the barrier
 					elif direction > movementSpeed and current_location > barrier and starting_location < barrier:
 						totalDown += 1
 						empty1.append(totalDown)
@@ -277,12 +283,12 @@ def run(company,camera_type, datetimeIn, datetimeOut):
 				else:
 
 					# *************************************************
-					#          	  Save Updated Data to Database
+					#        	Save Updated Data to Database
 					# *************************************************
-					dataHandler(entrances, exits, datetimeIn, datetimeOut, 
-								totalUp, totalDown, x, company)
+					DataUpdater(entrances, exits, datetimeIn, datetimeOut, 
+								totalUp, totalDown, x, company).updateData()
 
-					# Clearing variables for next time function is called
+					# Clearing variables for next time an update is called
 					entrances = []
 					exits = []
 					# *************************************************
