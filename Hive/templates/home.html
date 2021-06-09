@@ -13,20 +13,19 @@
         <div id="stats" class="card opacity-5 mt-5" style="width: 90vw;">
             <div class="card-body p-3 text-dark rounded shadow ">
                 
-                {% if chart %}
+                {% if chart0 %}
                 <h3 class="card-body bg-light border p-1 shadow rounded">{{ object.company }}</h3>
                 <div class="card-body p-0 bg-dark text-light rounded shadow">
                     <!-- <h3 class="card-title">Entries/Exits</h3> -->
                     <div class="d-flex justify-content-center">
                         {% if object.company == "Kaws" %}
-                        <img class='mt-2' src="data:image/png;base64, {{chart|safe}}">
-
-                        {% elif object.company == "Shotstop" %}
-                        <img class='mt-2' src="data:image/png;base64, {{chart2|safe}}">
+                        <img class='mt-2' src="data:image/png;base64, {{chart0|safe}}">
 
                         {% elif object.company == "YardBar" %}
                         <img class='mt-2' src="data:image/png;base64, {{chart1|safe}}">
 
+                        {% elif object.company == "Shotstop" %}
+                        <img class='mt-2' src="data:image/png;base64, {{chart2|safe}}">
                         {% endif %}
                     </div>
                     <br>

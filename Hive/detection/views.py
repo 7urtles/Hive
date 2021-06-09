@@ -19,42 +19,44 @@ class SettingsView(ListView):
             company_model = Company.objects.all()
             movement_model = Movement.objects.all()
             iterations = len(company_model)
+
+            # Using counter to access the company model
             count = 0
 
-            # using a counter to access the company model
-            while count <= int(iterations):
-                # All variables must be cleared of their data on each iteration
+            # Contains objects needed to render data on page
+            returned_objects_dictionary = {'object_list':company_model, 'entrances':movement_model}
+
+            while count < int(iterations):
+                # These lists must be cleared of their data on each iteration
                 in_list =[]
                 out_list =[]
                 x=[]
                 y=[]
                 x2=[]
-                y2=[] 
+                y2=[]
+
 #-----------------------------------------------------------------------------------------------------------------------------------------------------
-            # This needs to be edited to load all the movements into a variable containing a list of movements for each company
+            # This needs to be refactored to load all the movements into a variable containing a list of movements for each company
             # then access the movements according to company name. Instead of iterating every single movement everytime the loop is entered.    
 #-----------------------------------------------------------------------------------------------------------------------------------------------------
-            # iterate objects in the movement model
-
                 for item in movement_model:
                     #if company name in the model is the one asked for
                     company_model_name = company_model[count].company
                     if company_model_name == item.company:
-                        # print("company_model_name: {}, item.company: {}".format(company_model_name, item.company))
-                        # if the iterations entry time is not NONE
-                        if item.timeOut != None:
+
+                        # if the iterations entry time exists
+                        if item.timeOut:
                             #add the the date/time to a list
                             out_list.append(item.timeOut)
-                            #create a list and within it store it's hour, if the value is valid
-                            x2 = [x2.hour for x2 in out_list if x2 != None]
+                            #create a list and within it store it's hour
+                            x2 = [x2.hour for x2 in out_list]
 
-                        # if the iterations entry time is not NONE
-                        if item.timeIn != None:
+                        # if the iterations entry time exists
+                        if item.timeIn:
                             #add the the date/time to a list
                             in_list.append(item.timeIn)                        
-                            #create a list and within it store the hour, if the value is valid
-                            x = [x.hour for x in in_list if x != None]
-                
+                            #create a list and within it store the hour
+                            x = [x.hour for x in in_list]
                 
                 #count number of times entrences/exits happened per hour
                 for i in x:
@@ -62,20 +64,17 @@ class SettingsView(ListView):
                 for i in x2:
                     y2.append(x2.count(i))
 
-                if count == 0:
-                    chart = get_plot(x, y, x2, y2)
+                # Dynamic string creation
+                chart_name = "chart{}".format(count)
 
-                elif count == 1:
-                    chart1 = get_plot(x, y, x2, y2)
+                # Dynamic variable creation
+                globals()["chart{}".format(count)] = get_plot(x, y, x2, y2)
 
-                elif count == 2:
-                    chart2 = get_plot(x, y, x2, y2)
-                
-                    return render(request, 'home.html', {'chart': chart, 'chart1': chart1,
-                    'chart2': chart2, 'object_list':company_model, 'entrances':movement_model})
+                # Append Dynamic variable to the dictionary
+                returned_objects_dictionary[chart_name] = globals()["chart{}".format(count)]
 
                 count += 1
-                
+            return render(request, 'home.html', returned_objects_dictionary)   
         return graph_function
     
 
