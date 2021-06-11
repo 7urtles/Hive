@@ -45,7 +45,7 @@ Update coming with default admin credentials.
 
 Launching Image Recognition
 ---------------------------
-Leave the app server running and in new terminal withing cloned folder 'FSDI_Final':
+Leave the app server running and in new terminal within the cloned folder 'FSDI_Final':
 
 cd People-Counting-in-Real-Time
 
