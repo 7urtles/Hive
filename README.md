@@ -34,7 +34,7 @@ The app is set up with dummy data for demo purposes.
 
 Delete data as necessary through the admin page, or the sqlite db directly.
 
-Click the edit button to adjust to set webcam or ip camera link before running people counting script.
+Click the edit button to adjust to set ip camera url before running people counting script.
 
 Update coming with default admin credentials.
 
@@ -47,3 +47,5 @@ Leave the app server running and launch new terminal within the main folder 'FSD
 cd People-Counting-in-Real-Time
 
 python Run.py --prototxt mobilenet_ssd/MobileNetSSD_deploy.prototxt --model mobilenet_ssd/MobileNetSSD_deploy.caffemodel
+
+After running follow the terminal menu instructions
