@@ -13,7 +13,7 @@ cd inside cloned folder
 
 *pip install matplotlib
 
-note: update coming with updated requirments.txt and will eventually remove included virtual environment
+Note: update coming with updated requirments.txt and will eventually remove included virtual environment
 
 How to run
 --------------
@@ -48,4 +48,4 @@ cd People-Counting-in-Real-Time
 
 python Run.py --prototxt mobilenet_ssd/MobileNetSSD_deploy.prototxt --model mobilenet_ssd/MobileNetSSD_deploy.caffemodel
 
-After running follow the terminal menu instructions
+Note: After running follow the terminal menu instructions
