@@ -1,7 +1,7 @@
 # FSDI_Final
 Django app that counts movement through an area, records it, and displays it in real time.
 
-![](https://raw.githubusercontent.com/chparmley/FSDI_Final/main/Resources/Hive.png | width=100)
+<img src=https://raw.githubusercontent.com/chparmley/FSDI_Final/main/Resources/Hive.png width="100">
 
 Installation
 ------------
