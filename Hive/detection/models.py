@@ -9,15 +9,13 @@ class Company(models.Model):
     exited = models.IntegerField(default=0)
     current = models.IntegerField(default=0)
     capacity = models.IntegerField(default=0)
-    camera_url = models.CharField(max_length=200)
+    camera_url = models.CharField(max_length=200, default="http://192.168.1.216/stream.mjpg")
 
     def __str__(self):
         return self.company
 
     def get_absolute_url(self):
         return reverse('counts_detail', args=[str(self.pk)])
-
-
 
 
 class Movement(models.Model):

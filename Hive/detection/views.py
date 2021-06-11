@@ -44,7 +44,7 @@ class SettingsView(ListView):
                         x = [x.hour for x in in_list]
                     count2+=1
                 #count number of times entrences/exits happened per hour
-                y,y2 = [x.count(i) for i in x],[x.count(i) for i in x2]
+                y,y2 = [x.count(i) for i in x],[x2.count(i) for i in x2]
                 # Dynamic string creation
                 chart_name = "chart{}".format(count)
                 # Dynamic variable creation
@@ -54,24 +54,9 @@ class SettingsView(ListView):
                 count += 1
             return render(request, 'home.html', returned_objects_dictionary)   
         return graph_function
-    
-
-class CompanyDetailView(DetailView):
-	model = Company
-	template_name = 'home.html'
-
-class CompanyCreateView(CreateView):
-    model = Company
-    template_name = 'company_create.html'
-    fields = ['company', 'entered', 'exited', 'current', 'capacity']
 
 class CompanyUpdateView(UpdateView):
     model = Company
     template_name = 'edit.html'
     fields = ['company', 'entered', 'exited', 'current', 'capacity']
-    success_url = reverse_lazy('home')
-
-class CompanyDeleteView(DeleteView):
-    model = Company
-    template_name = 'company_reset.html'
     success_url = reverse_lazy('home')

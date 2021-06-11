@@ -23,3 +23,16 @@ class Create_URL_Tests(TestCase):
     def test_home_url(self):
         response = resolve('/')
         self.assertEqual(response.func, SettingsView.as_view())
+    
+    def test_home_url(self):
+        response = self.client.post(
+            reverse('home')
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_edit_url(self):
+        company = Company.objects.create(id=1, company="CompanyTest_1", entered=5, exited=4, current=1, capacity=15),
+        response = self.client.post(
+            reverse('edit', kwargs={'pk': company[0].id})
+        )
+        self.assertEqual(response.status_code, 200)
