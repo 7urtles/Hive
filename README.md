@@ -26,7 +26,7 @@ Accessing the app
 ------------------
 On any device on same network as the host:
 
-http://'your.host.ip.address':8000
+http://your.host.ip.address:8000
 
 Register an account then login
 
