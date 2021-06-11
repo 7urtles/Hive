@@ -30,7 +30,7 @@ Accessing the app
 ------------------
 On any device on same network as the device used in the previous step:
 
-http://that.devices.ip.address:8000
+http://that.devices.ip.address:8000 <--not for clicking, will format out hyperlink later
 
 Register an account and then login
 
