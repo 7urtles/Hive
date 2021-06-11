@@ -8,7 +8,6 @@
 
 {% if user.is_authenticated %}
     {% for object in object_list %}
-
     
         <div id="stats" class="card opacity-5 mt-5" style="width: 90vw;">
             <div class="card-body p-3 text-dark rounded shadow ">
@@ -16,7 +15,6 @@
                 {% if chart0 %}
                 <h3 class="card-body bg-light border p-1 shadow rounded">{{ object.company }}</h3>
                 <div class="card-body p-0 bg-dark text-light rounded shadow">
-                    <!-- <h3 class="card-title">Entries/Exits</h3> -->
                     <div class="d-flex justify-content-center">
                         {% if object.company == "Kaws" %}
                         <img class='mt-2' src="data:image/png;base64, {{chart0|safe}}">
