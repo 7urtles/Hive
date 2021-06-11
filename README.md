@@ -37,6 +37,8 @@ The app is set up with dummy data for demo purposes.
 
 Delete data as necessary through the admin page, or the sqlite db directly.
 
+Click the edit button to adjust to set webcam or ip camera link before running people counting script.
+
 Update coming with default admin credentials.
 
 
