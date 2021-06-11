@@ -34,7 +34,9 @@ http://'your.host.ip.address':8000
 Register an account then login
 
 The app is set up with dummy data for demo purposes.
+
 Delete data as necessary through the admin page, or the sqlite db directly.
+
 Update coming with default admin credentials.
 
 
