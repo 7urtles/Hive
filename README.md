@@ -15,6 +15,9 @@ cd inside cloned folder
 
 Note: update coming with updated requirments.txt and will eventually remove included virtual environment
 
+
+
+
 How to run
 --------------
 cd Traffic_Monitor
@@ -22,13 +25,14 @@ cd Traffic_Monitor
 python3 manage.py runserver 0.0.0.0:8000
 
 
+
 Accessing the app
 ------------------
-On any device on same network as the host:
+On any device on same network as the device used in the previous step:
 
-http://your.host.ip.address:8000
+http://that.devices.ip.address:8000
 
-Register an account then login
+Register an account and then login
 
 The app is set up with dummy data for demo purposes.
 
@@ -36,7 +40,7 @@ Delete data as necessary through the admin page, or the sqlite db directly.
 
 Click the edit button to adjust to set ip camera url before running people counting script.
 
-Update coming with default admin credentials.
+Note: Update pending that will include default admin credentials.
 
 
 
