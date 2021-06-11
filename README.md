@@ -9,14 +9,11 @@ clone repo
 
 cd inside cloned folder
 
-*python3 -m venv venv
-
 *source venv/bin/activate
 
-*pip install cmake
+*pip install matplotlib
 
-*pip install -r requirements.txt
-
+note: update coming with updated requirments.txt and will eventually remove included virtual environment
 
 How to run
 --------------
@@ -45,7 +42,7 @@ Update coming with default admin credentials.
 
 Launching Image Recognition
 ---------------------------
-Leave the app server running and in new terminal within the cloned folder 'FSDI_Final':
+Leave the app server running and launch new terminal within the main folder 'FSDI_Final':
 
 cd People-Counting-in-Real-Time
 
