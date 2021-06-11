@@ -20,9 +20,6 @@ class Create_Movement_Test(TestCase):
         self.assertEqual(Movement.objects.count(), 2)
 
 class Create_URL_Tests(TestCase):
-    def test_home_url(self):
-        response = resolve('/')
-        self.assertEqual(response.func, SettingsView.as_view())
     
     def test_home_url(self):
         response = self.client.post(
