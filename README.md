@@ -1,7 +1,7 @@
 # FSDI_Final
 Django App counts movement through an entryway, records it, and displays it in real time.
 
-<img src=https://raw.githubusercontent.com/chparmley/FSDI_Final/main/Resources/Hive.png width="200">
+<img src=https://raw.githubusercontent.com/chparmley/Hive/main/Resources/Hive.png width="200">
 
 Installation
 ------------
