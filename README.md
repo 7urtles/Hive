@@ -5,13 +5,13 @@ Django App counts movement through an entryway, records it, and displays it in r
 
 Installation
 ------------
-clone repo
+    https://github.com/chparmley/Hive.git
 
-cd inside cloned folder
+    cd Hive
 
-*source venv/bin/activate
+    source venv/bin/activate
 
-*pip install matplotlib
+    pip install matplotlib
 
 Note: update coming with updated requirments.txt and will eventually remove included virtual environment
 
@@ -20,9 +20,9 @@ Note: update coming with updated requirments.txt and will eventually remove incl
 
 How to run
 --------------
-cd Traffic_Monitor
+    cd Traffic_Monitor
 
-python3 manage.py runserver 0.0.0.0:8000
+    python3 manage.py runserver 0.0.0.0:8000
 
 
 
@@ -46,10 +46,10 @@ Note: Update pending that will include default admin credentials.
 
 Launching Image Recognition
 ---------------------------
-Leave the app server running and launch new terminal within the main folder 'FSDI_Final':
+Leave the app server running and launch new terminal within the main folder 'Hive':
 
-cd People-Counting-in-Real-Time
+    cd People-Counting-in-Real-Time
 
-python Run.py --prototxt mobilenet_ssd/MobileNetSSD_deploy.prototxt --model mobilenet_ssd/MobileNetSSD_deploy.caffemodel
+    python3 Run.py --prototxt mobilenet_ssd/MobileNetSSD_deploy.prototxt --model mobilenet_ssd/MobileNetSSD_deploy.caffemodel
 
 Note: After running follow the terminal menu instructions
